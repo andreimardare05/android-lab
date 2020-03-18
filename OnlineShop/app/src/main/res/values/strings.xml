@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">OnlineShop</string>
+    <string name="welcome_message">Welcome to our Cafe</string>
+    <string name="title_activity_destination">destinationActivity</string>
+    <string name="email">Subscribe with your email</string>
+    <string name="activity_about_text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tortor dignissim convallis aenean. Convallis aenean et tortor at. Viverra mauris in aliquam sem fringilla ut morbi tincidunt. Dui id ornare arcu odio ut sem nulla. Augue lacus viverra vitae congue eu consequat ac felis.
+        Tincidunt tortor aliquam nulla facilisi cras fermentum.
+        Eu tincidunt tortor aliquam nulla facilisi cras fermentum odio eu. Sed enim ut sem viverra.
+        Praesent tristique magna sit amet purus gravida quis blandit. Aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices. Diam maecenas ultricies mi eget mauris pharetra et. Aliquet porttitor lacus luctus accumsan tortor posuere ac ut. Quam nulla porttitor massa id neque. Pretium vulputate sapien nec sagittis. Sit amet luctus venenatis lectus magna fringilla urna. Molestie nunc non blandit massa. Proin fermentum leo vel orci porta non pulvinar neque.
+        Nullam ac tortor vitae purus faucibus ornare suspendisse.
+        Quam lacus suspendisse faucibus interdum posuere lorem ipsum. Nunc lobortis mattis aliquam faucibus purus in massa tempor nec. Proin nibh nisl condimentum id venenatis a. Massa massa ultricies mi quis. Pharetra convallis posuere morbi leo urna. Condimentum lacinia quis vel eros donec ac. Etiam dignissim diam quis enim lobortis. Orci nulla pellentesque dignissim enim sit amet venenatis urna. Augue mauris augue neque gravida in. Vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt.</string>
+    <string name="title_about_us">Our commitment</string>
+    <string name="text_share">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</string>
+    <string name="cancel">CANCEL</string>
+    <string name="fire">SUBSCRIBE</string>
+    <string name="dialogdescription">Be first to get the latest news, discounts and more ....</string>
+    <string name="title_dialog">Subscribe</string>
+</resources>
