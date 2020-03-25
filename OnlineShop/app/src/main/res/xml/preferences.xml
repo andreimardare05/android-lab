@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <androidx.preference.SwitchPreference
+        android:defaultValue="false"
+        android:key="notifications"
+        android:summary="Turn this option on or off"
+        android:title="Enable message notifications" />
+
+    <androidx.preference.PreferenceCategory
+        android:title="Personal information">
+        <androidx.preference.EditTextPreference
+            android:key="first_name"
+            android:summary="Enter your first name to be used in the order process"
+            android:title="Your first name"
+            android:dialogTitle="First name"/>
+        <androidx.preference.EditTextPreference
+            android:key="last_name"
+            android:summary="Enter your last name to be used in the order process"
+            android:title="Your last name"
+            android:dialogTitle="Last name"/>
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory
+        android:title="Help">
+        <androidx.preference.EditTextPreference
+            android:key="feedback"
+            android:summary="Report technical issues or suggest new drinks for our shop"
+            android:title="Send feedback"
+            android:dialogTitle="Feedback"/>
+    </androidx.preference.PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

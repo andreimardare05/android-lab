@@ -2,8 +2,6 @@ package com.example.onlineshop;
 
 import androidx.annotation.NonNull;
 
-import java.lang.reflect.Array;
-
 public class Coffee {
     private String name;
     private String description;

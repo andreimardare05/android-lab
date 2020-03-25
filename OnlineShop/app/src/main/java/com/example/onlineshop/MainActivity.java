@@ -1,4 +1,5 @@
 package com.example.onlineshop;
+import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.BufferedReader;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
 public class MainActivity extends AppCompatActivity {
     Coffee[] drinksArray = { new Coffee("Espresso", null, 7),new Coffee("Espresso Macchiatto", null, 10),
             new Coffee("Cappuccino", null, 10), new Coffee("Latte Machiatto", null, 15),
@@ -22,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
             ArrayAdapter adapter = new ArrayAdapter<Coffee>(this,R.layout.activity_listview, drinksArray);
         ListView listView = (ListView) findViewById(R.id.listview);
@@ -43,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
                     TextView description = (TextView) findViewById(R.id.description);
 
                     description.setText(drinksArray[position].selectionString());
+
+                    saveTextToInternalStorage(drinksArray[position].selectionString());
+
+                    readFromInternalStorage();
 
                 }
             });
@@ -92,9 +105,43 @@ public class MainActivity extends AppCompatActivity {
         else if(id == R.id.action_subscribe){
             DialogFragment newFragment = new SubscribeDialogFragment();
             newFragment.show(getSupportFragmentManager(), "subscribe");
-
+        }
+        else if(id == R.id.action_settings){
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void saveTextToInternalStorage(String text) {
+        try {
+            FileOutputStream fileOutputStream = openFileOutput("internal_storage.txt", Context.MODE_PRIVATE);
+            OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream);
+            writer.append(text);
+            writer.close();
+            fileOutputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void readFromInternalStorage() {
+        try {
+            FileInputStream fileInputStream = openFileInput("internal_storage.txt");
+            InputStreamReader isr = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -46,6 +46,11 @@ public class AboutActivity extends AppCompatActivity {
             DialogFragment newFragment = new SubscribeDialogFragment();
             newFragment.show(getSupportFragmentManager(), "SUBSCRIBE");
         }
+
+        else if(id == R.id.action_settings){
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 
