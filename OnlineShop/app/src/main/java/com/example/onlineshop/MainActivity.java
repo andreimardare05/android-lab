@@ -1,12 +1,18 @@
 package com.example.onlineshop;
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 import android.os.Bundle;
@@ -14,6 +20,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.BufferedReader;
 
@@ -28,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     Coffee[] drinksArray = { new Coffee("Espresso", null, 7),new Coffee("Espresso Macchiatto", null, 10),
             new Coffee("Cappuccino", null, 10), new Coffee("Latte Machiatto", null, 15),
             new Coffee("Coconut White Hot Chocolate", null, 15)};
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
             ArrayAdapter adapter = new ArrayAdapter<Coffee>(this,R.layout.activity_listview, drinksArray);
         ListView listView = (ListView) findViewById(R.id.listview);
         listView.setAdapter(adapter);
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
 
         if (savedInstanceState != null) {
             TextView description = (TextView) findViewById(R.id.description);
@@ -59,6 +77,24 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            Toast.makeText(
+                                    MainActivity.this, "Latitude: " + location.getLatitude() + "\n" + " Latitude: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
+                            System.out.println("Location:" + location.toString());
+                        }
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        System.out.println("Location: " + e.getMessage());
+                    }
+                });
     }
 
     @Override
@@ -108,6 +144,10 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(id == R.id.action_settings){
             Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.action_sensors){
+            Intent intent = new Intent(this, SensorsActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

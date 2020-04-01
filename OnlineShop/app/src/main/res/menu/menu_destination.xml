@@ -9,6 +9,10 @@
         android:id="@+id/action_subscribe"
         android:title="Subscribe to our shop" />
     <item
+        android:id="@+id/action_sensors"
+        android:title="Sensors"
+        android:visible="true" />
+    <item
         android:id="@+id/action_about"
         android:title="About"
         android:visible="true" />

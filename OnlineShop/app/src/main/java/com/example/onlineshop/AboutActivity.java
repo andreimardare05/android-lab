@@ -29,8 +29,7 @@ public class AboutActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id == R.id.action_about){
-            Intent intent = new Intent(this, AboutActivity.class);
-            startActivity(intent);
+            System.out.println("You are in AboutActivity!");
         }
         else if(id == R.id.action_share){
             Intent sendIntent = new Intent();
@@ -49,6 +48,10 @@ public class AboutActivity extends AppCompatActivity {
 
         else if(id == R.id.action_settings){
             Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.action_sensors){
+            Intent intent = new Intent(this, SensorsActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
