@@ -1,5 +1,7 @@
 package com.example.onlineshop;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.Camera;
 
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,6 +29,8 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     Camera.PictureCallback callback;
     SurfaceView surfaceView;
     SurfaceHolder surfaceHolder;
+    private boolean safeToTakePicture = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +54,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                 }
                 File pictureDirectory = directory;
 
-                String photoFile = "Photo" + new SimpleDateFormat("yyy-dd-mm-hh-mmss").format(new Date()) + ".jpg";
+                String photoFile = "Photo" + new SimpleDateFormat("yyyddmmhhmmss").format(new Date()) + ".jpg";
 
                 String filename = pictureDirectory + File.separator + photoFile;
 
@@ -74,13 +79,20 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                camera.takePicture(null, null, callback);
+                if (safeToTakePicture) {
+                    camera.takePicture(null, null, callback);
+                    safeToTakePicture = false;
+                }
             }
         });
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1); this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
+
         camera = Camera.open();
         Camera.Parameters parameters = camera.getParameters();
         camera.setParameters(parameters);
@@ -103,6 +115,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
         resetCamera();
     }
 
@@ -113,6 +126,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
         if (camera != null) {
             camera.stopPreview();
+            safeToTakePicture = true;
             try {
                 camera.setPreviewDisplay(surfaceHolder);
             } catch (IOException e) {
