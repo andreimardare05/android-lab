@@ -51,8 +51,15 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                    this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            this.requestPermissions(new String[]{Manifest.permission.CAMERA}, 1);
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1); this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
 
         if (savedInstanceState != null) {
@@ -148,6 +155,10 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(id == R.id.action_sensors){
             Intent intent = new Intent(this, SensorsActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.action_camera){
+            Intent intent = new Intent(this, CameraActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
